@@ -15,7 +15,7 @@ class GameController extends AbstractController
         return $this->render('game/list.html.twig');
     }
 
-    #[Route('/{id}', name: 'single', requirements: ["id" => "[\d+]"])]
+    #[Route('/{id}', name: 'single', requirements: ["id" => "\d+"])]
     public function single($id): Response
     {
         return $this->render('game/single.html.twig');

@@ -1,1 +1,9 @@
-<h1>A propos</h1>
+        {% extends 'base.html.twig' %}
+        
+        {% block title %}
+            A propos - {{ parent() }}
+        {% endblock %}
+
+        {% block body %}
+            <h1>A propos</h1>
+        {% endblock %}
