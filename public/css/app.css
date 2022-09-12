@@ -1,3 +1,114 @@
-body {
-    background-color: blueviolet;
+:root{
+    --primary: #f46b45;
+    --secondary: #eea849;
+    --light: #f5f6fa;
+    --dark: #2f3640;
+    --success: #27ae60;
+    --error: #c0392b;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+header{
+    background: linear-gradient(to bottom right, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    color: var(--light);
+}
+
+header .identity{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+header .identity img{
+    height: 30px;
+    margin-right: 10px;
+}
+
+header nav ul{
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+}
+
+header nav li a{
+    transition: ease-in .3s;
+}
+
+header nav li a:hover{
+    color: var(--error);
+}
+
+header nav ul li.separator:before{
+    content: "";
+    margin: 0 30px 0 10px;
+    border: 2px solid var(--light);
+}
+
+main{
+    flex: 1;
+}
+
+
+.btn-register{
+    border: var(--error) 2px solid;
+    color: var(--error);
+    padding: 1rem;
+    border-radius: .5rem;
+    transition: 0.2s;
+}
+
+.btn-register:hover{
+    color: var(--light);
+    border: var(--light) 2px solid;
+}
+
+.btn-login{
+    background-color: var(--error);
+    padding: 1rem;
+    border-radius: .5rem;
+    transition: 0.2s;
+}
+
+.btn-login:hover{
+    background-color: var(--light);
+}
+
+footer{
+    color: var(--light);
+}
+
+footer ul{
+    background-color: var(--dark);
+    padding: 20px 10px;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
+footer p{
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+    background-color: var(--primary);
 }
