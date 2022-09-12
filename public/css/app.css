@@ -16,10 +16,20 @@ body{
     font-family: Roboto, sans-serif;
 }
 
+/* === GENERAL STYLES === */
+
 a{
     text-decoration: none;
     color: inherit;
 }
+
+.button{
+    border-radius: 5px;
+    background-color: var(--primary);
+    padding: 10px;
+}
+
+/* === HEADER === */
 
 header{
     background: linear-gradient(to bottom right, var(--primary), var(--secondary));
@@ -72,7 +82,7 @@ main{
 .btn-register{
     border: var(--error) 2px solid;
     color: var(--error);
-    padding: 1rem;
+    padding: .5rem;
     border-radius: .5rem;
     transition: 0.2s;
 }
@@ -84,7 +94,7 @@ main{
 
 .btn-login{
     background-color: var(--error);
-    padding: 1rem;
+    padding: .7rem;
     border-radius: .5rem;
     transition: 0.2s;
 }
@@ -92,6 +102,8 @@ main{
 .btn-login:hover{
     background-color: var(--light);
 }
+
+/* === FOOTER === */
 
 footer{
     color: var(--light);
@@ -111,4 +123,29 @@ footer p{
     margin: 0;
     padding: 10px;
     background-color: var(--primary);
+}
+
+/* === LANDING PAGE === */
+
+.landing{
+    position: relative;
+    height: 600px;
+    background-image: url("../images/landing.jpg");
+    background-size: cover;
+    background-position: center center;
+}
+
+.landing-overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--light);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
