@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Game;
+use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,16 +11,36 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/game', name: 'game_')]
 class GameController extends AbstractController
 {
+    public function __construct(private GameRepository $gameRepository)
+    {
+    }
+
     #[Route('', name: 'list')]
     public function list(): Response
     {
-        return $this->render('game/list.html.twig');
+        $games = $this->gameRepository->findBy([], ['name' => 'ASC']);
+
+        return $this->render('game/list.html.twig', [
+            'games' => $games,
+        ]);
     }
 
+//    #[Route('/{id}', name: 'single', requirements: ["id" => "\d+"])]
+//    public function single($id): Response
+//    {
+//        $game = $this->gameRepository->find($id);
+//
+//        return $this->render('game/single.html.twig', [
+//            'game' => $game
+//        ]);
+//    }
+
     #[Route('/{id}', name: 'single', requirements: ["id" => "\d+"])]
-    public function single($id): Response
+    public function single(Game $game): Response
     {
-        return $this->render('game/single.html.twig');
+        return $this->render('game/single.html.twig', [
+            'game' => $game
+        ]);
     }
 
     #[Route('/create', name: 'create')]
