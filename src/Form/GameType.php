@@ -45,7 +45,7 @@ class GameType extends AbstractType
                     'min' => 1,
                     'max' => 100,
                 ],
-                'help' => 'Si un nombre de joueur fixe, laissez ce champ vide'
+                'help' => 'nombre de joueur fixe, laissez ce champ vide'
             ])
             ->add('duration', null, [
                 'label' => 'Durée moyenne',
