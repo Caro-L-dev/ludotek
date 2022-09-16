@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Form\GameType;
 use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -44,8 +46,23 @@ class GameController extends AbstractController
     }
 
     #[Route('/create', name: 'create')]
-    public function form(): Response
+    public function form(Request $request): Response
     {
-        return $this->render('game/form.html.twig');
+        $game = new Game();
+        $form = $this->createForm(GameType::class, $game);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->gameRepository->add($game, true);
+
+            $this->addFlash('success', 'Jeu sauvegardé !');
+            return $this->redirectToRoute('game_single', [
+                'id' => $game->getId(),
+            ]);
+        }
+
+        return $this->render('game/form.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

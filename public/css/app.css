@@ -30,6 +30,8 @@ a{
     padding: 10px;
     transition: .2s;
     color: var(--light);
+    cursor: pointer;
+    border: none;
 }
 
 .button:hover{

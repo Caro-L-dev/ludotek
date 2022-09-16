@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 class Game
@@ -17,34 +19,61 @@ class Game
     private ?int $id = null;
 
     #[ORM\Column(length: 120)]
+    #[Assert\NotBlank(message: "Veuillez saisir un nom")]
+    #[Assert\Length(
+        max: 120,
+        maxMessage: "Le nom du jeu ne doit éxcéder {{ limit }} caractères",
+    )]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Veuillez saisir une description")]
+    #[Assert\Length(
+        min: 20,
+        max: 2000,
+        minMessage: "La description doit contenir au minimum {{ limit }} caractères",
+        maxMessage: "La description ne doit éxcéder {{ limit }} caractères",
+    )]
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $minimumAge = null;
+    #[Assert\Range(
+        notInRangeMessage: "L'age minimum doit être compris entre {{ min }} et {{ max }}",
+        min: 1,
+        max: 18,
+    )]
+    private ?int $minimumAge = 1;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual(
+        value: 1,
+        message: "Le nombre de joueur minimum est de {{ compared_value }}"
+    )]
     private ?int $minimumPlayer = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThan(
+        propertyPath: "minimumPlayer",
+        message: "Le nombre de joueur maximum doit être supérieur à {{ compared_value }}",
+    )]
     private ?int $maximumPlayer = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $duration = null;
+    private ?DateTimeInterface $duration = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $releaseAt = null;
+    private ?DateTimeInterface $releaseAt = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
     private ?Category $category = null;
 
-    #[ORM\ManyToMany(targetEntity: Editor::class, inversedBy: 'games')]
+    #[ORM\ManyToMany(targetEntity: Editor::class)]
     private Collection $editors;
 
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: GameDesigner::class, orphanRemoval: true)]
@@ -133,24 +162,24 @@ class Game
         return $this;
     }
 
-    public function getDuration(): ?\DateTimeInterface
+    public function getDuration(): ?DateTimeInterface
     {
         return $this->duration;
     }
 
-    public function setDuration(\DateTimeInterface $duration): self
+    public function setDuration(DateTimeInterface $duration): self
     {
         $this->duration = $duration;
 
         return $this;
     }
 
-    public function getReleaseAt(): ?\DateTimeInterface
+    public function getReleaseAt(): ?DateTimeInterface
     {
         return $this->releaseAt;
     }
 
-    public function setReleaseAt(?\DateTimeInterface $releaseAt): self
+    public function setReleaseAt(?DateTimeInterface $releaseAt): self
     {
         $this->releaseAt = $releaseAt;
 

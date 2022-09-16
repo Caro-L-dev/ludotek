@@ -1,9 +1,52 @@
-        {% extends 'base.html.twig' %}
-        
-        {% block title %}
-            Formulaire - {{ parent() }}
-        {% endblock %}
+{% extends 'base.html.twig' %}
 
-        {% block body %}
-            <h1>Formulaire de création de jeu</h1>
-        {% endblock %}
+{% block title %}Ajouter un jeu{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Ajouter un jeu</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.name) }}
+
+    {{ form_row(form.description) }}
+
+    <div class="form-aligned">
+        {{ form_row(form.picture) }}
+        {{ form_row(form.releaseAt) }}
+    </div>
+
+    <div class="form-aligned">
+        <p>Heure(s) & Minute(s)</p>
+        {{ form_row(form.duration) }}
+
+        {# {{ form_row(form.minimumAge) }} #}
+    </div>
+
+    <div class="form-aligned">
+        {{ form_row(form.minimumPlayer) }}
+        {{ form_row(form.maximumPlayer) }}
+        {{ form_row(form.category) }}
+    </div>
+
+    
+    {{ form_row(form.editors) }}
+
+    <div class="form-end">
+        <button class="button">Ajouter</button>
+    </div>
+    {{ form_end(form) }}
+    </section>
+    
+{% endblock %}
+
+{#    {{ form(form) }}#}
+{#    {{ form_label(form.name) }}#}
+{#    {{ form_errors(form.name) }}#}
+{#    {{ form_widget(form.name) }}#}
+{#    {{ form_help(form.name) }}#}
